@@ -1,5 +1,9 @@
+import './SearchInput.css'
+
 const SearchInput = () => {
-    return <div>test</div>
+  return <div className='SearchInput'>
+    <input />
+  </div>
 }
 
 export default SearchInput
