@@ -1,13 +1,12 @@
-import './App.css';
-import CustomLabel from './CustomLabel';
+import "./App.css";
+import SearchInput from "./components/SearchInput";
 
 function App() {
   return (
     <div className="App">
-      <CustomLabel />
+      <SearchInput />
     </div>
   );
 }
 
 export default App;
-
