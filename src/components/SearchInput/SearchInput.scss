@@ -1,0 +1,50 @@
+.SearchInput {
+  position: relative;
+  box-shadow: 0 1px 6px 0 #20212447;
+  height: 44px;
+  border-radius: 22px;
+  padding: 1px 0 0;
+  overflow: hidden;
+
+  &.Extended {
+    height: auto;
+  }
+
+  .SearchIcon {
+    position: absolute;
+    top: 12px;
+    left: 20px;
+    width: 20px;
+    height: 20px;
+    color: #5f6368ff;
+  }
+
+  input {
+    width: calc(100% - 104px);
+    height: 44px;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0 52px;
+    border: 0;
+    outline-width: 0;
+    font-size: 16px;
+    color: #000000ff;
+  }
+
+  .SearchTipsList {
+    .SearchTip {
+      height: 44px;
+      display: flex;
+      align-items: center;
+      color: #000000ff;
+
+      span {
+        margin-left: 52px;
+      }
+
+      &:hover {
+        background-color: rgb(228, 230, 231);
+      }
+    }
+  }
+}
