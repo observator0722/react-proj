@@ -19,6 +19,13 @@ const SearchInput = () => {
     setExtended(false)
   }
 
+  const submitSearch = event => {
+    if (event.code === "Enter") {
+      setOptions([value, ...options]);
+      setValue('')
+    }
+  }
+
   return (
     <div className='SearchInput Extended'>
       <MdSearch className='SearchIcon' />
@@ -27,14 +34,12 @@ const SearchInput = () => {
         onChange={handleValueChange}
         onFocus={handleInputFocus}
         onBlur={handleInputBlur}
-        onSubmit={e => {
-          setOptions([value, ...options]);
-          setValue('')}} />
+        onKeyDown={submitSearch} />
       {
         extended
           ? <div className='SearchTipsList'>
             {
-              options.map(o => <SearchTip value={o}/>)
+              options.map((o,i) => <SearchTip key={i} value={o} />)
             }
           </div>
           : <></>
