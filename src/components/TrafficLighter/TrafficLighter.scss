@@ -1,0 +1,11 @@
+.TrafficLighter {
+  & > div {
+    width: 100px;
+    height: 100px;
+    opacity: 0.2;
+
+    &.selected {
+      opacity: 1;
+    }
+  }
+}
