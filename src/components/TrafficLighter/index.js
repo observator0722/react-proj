@@ -1,32 +1,34 @@
 import "./TrafficLighter.scss"
 import { useState } from "react";
 
+
+
 const TrafficLighter = () => {
 
   const [selectedColor, setSelectedColor] = useState('');
 
-  const getClassNameForColor = (color) => {
-    return selectedColor === color ? "selected" : ""
-  }
-
-  const handleClickForColor = (color) => {
-    return e => {
-      setSelectedColor(color)
-    }
-  }
-
   return (
     <div className="TrafficLighter">
-      <div className={getClassNameForColor("red")}
-        style={{ backgroundColor: "red" }}
-        onClick={handleClickForColor("red")}></div>
-      <div className={getClassNameForColor("yellow")}
-        style={{ backgroundColor: "yellow" }}
-        onClick={handleClickForColor("yellow")}></div>
-      <div className={getClassNameForColor("green")}
-        style={{ backgroundColor: "green" }}
-        onClick={handleClickForColor("green")}></div>
+      <Light color="red" selected={selectedColor} setColor={setSelectedColor} />
+      <Light color="yellow" selected={selectedColor} setColor={setSelectedColor} />
+      <Light color="green" selected={selectedColor} setColor={setSelectedColor} />
     </div>
+  )
+}
+
+
+
+const Light = (props) => {
+  const handleLightClick = (event) => {
+    props.setColor(props.color)
+  }
+
+  const className = props.selected === props.color ? "selected" : "";
+
+  return (
+    <div className={className}
+      style={{ backgroundColor: props.color }}
+      onClick={handleLightClick}></div>
   )
 }
 
