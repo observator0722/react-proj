@@ -1,15 +1,13 @@
-import "./App.scss";
-import SearchInput from "./components/SearchInput";
-import TrafficLighter from "./components/TrafficLighter";
+import { ChakraProvider } from "@chakra-ui/react";
 
 
 const App = () => {
   return (
-    <div className="App">
-      <TrafficLighter/>
-      <SearchInput />
-    </div>
+    <ChakraProvider>
+    </ChakraProvider>
   )
 }
 
 export default App;
+
+
