@@ -1,11 +1,27 @@
 import { TableContainer, Td, Table, Thead, Th, Tr, Tbody, Tfoot } from "@chakra-ui/table"
+import { useEffect, useState } from "react"
+import { getAllCountries } from "../../services/countries"
+import { Progress } from "@chakra-ui/react"
 
 const CountriesList = () => {
-  const countries = [
-    'Russia',
-    'Armenia',
-    'Georgia'
-  ]
+  const [countries, setCountries] = useState([])
+  const [loading, setLoading] = useState(false)
+
+  useEffect(() => {
+    setLoading(true)
+    
+    getAllCountries()
+      .then(data => {
+        setCountries(data)
+      })
+      .finally(()=>{
+        setLoading(false)
+      })
+  }, [])
+
+  if (loading) {
+    return <Progress size='md' isIndeterminate />
+  }
 
   return (
     <TableContainer>
@@ -16,9 +32,9 @@ const CountriesList = () => {
           </Tr>
         </Thead>
         <Tbody>
-            {
-              countries.map(c => <Tr><Td>{c}</Td></Tr>)
-            }
+          {
+            countries.map(c => <Tr key={c.name.common}><Td>{c.name.common}</Td></Tr>)
+          }
         </Tbody>
         <Tfoot>
           <Tr>

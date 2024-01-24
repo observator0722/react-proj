@@ -1,7 +1,8 @@
 import http from "./http"
 
 export const getAllCountries = async () => {
-  return await http.get('all')
+  const response = await http.get('all')
+  return response.data
 }
 
 export const searchCountryByFullName = async (name) => {
