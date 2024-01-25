@@ -6,7 +6,8 @@ export const getAllCountries = async () => {
 }
 
 export const searchCountryByFullName = async (name) => {
-  return await http.get(`name/${name}`)
+  const response = await http.get(`name/${name}`)
+  return response.data
 }
 
 export default {

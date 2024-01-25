@@ -1,48 +1,59 @@
-import { TableContainer, Td, Table, Thead, Th, Tr, Tbody, Tfoot } from "@chakra-ui/table"
 import { useEffect, useState } from "react"
-import { getAllCountries } from "../../services/countries"
-import { Progress } from "@chakra-ui/react"
+import { getAllCountries, searchCountryByFullName } from "../../services/countries"
+import { Input, Progress } from "@chakra-ui/react"
+import CountriesTable from "../CountriesTable"
 
 const CountriesList = () => {
   const [countries, setCountries] = useState([])
   const [loading, setLoading] = useState(false)
+  const [searchValue, setSearchValue] = useState('')
 
   useEffect(() => {
     setLoading(true)
-    
+
     getAllCountries()
       .then(data => {
         setCountries(data)
       })
-      .finally(()=>{
+      .finally(() => {
         setLoading(false)
       })
   }, [])
 
-  if (loading) {
-    return <Progress size='md' isIndeterminate />
+  useEffect(() => {
+    if (!searchValue) {
+      return;
+    }
+
+    setLoading(true)
+
+    searchCountryByFullName(searchValue)
+      .then(data => {
+        setCountries(data)
+      })
+      .finally(() => {
+        setLoading(false)
+      })
+  }, [searchValue])
+
+  // useEffect(() => {
+  //   // запросить у сервера список стран соответствующих поисковой строке
+  // }, [/* при изменении поискового запроса*/])
+
+  const handleSearchValueChange = (event) => {
+    setSearchValue(event.target.value)
   }
 
   return (
-    <TableContainer>
-      <Table variant='simple'>
-        <Thead>
-          <Tr>
-            <Th>Country name</Th>
-          </Tr>
-        </Thead>
-        <Tbody>
-          {
-            countries.map(c => <Tr key={c.name.common}><Td>{c.name.common}</Td></Tr>)
-          }
-        </Tbody>
-        <Tfoot>
-          <Tr>
-            <Th>Country name</Th>
-          </Tr>
-        </Tfoot>
-      </Table>
-    </TableContainer>
+    <>
+      <Input placeholder='Search countries' m={4} value={searchValue} onChange={handleSearchValueChange} />
+
+      {
+        loading
+          ? <Progress size='md' isIndeterminate />
+          : <CountriesTable countries={countries} />
+      }
+    </>
   )
 }
 
