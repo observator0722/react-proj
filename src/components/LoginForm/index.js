@@ -1,4 +1,4 @@
-import { Box, Button, FormControl, FormErrorMessage, FormLabel, Input } from "@chakra-ui/react"
+import { Box, Button, FormControl, FormErrorMessage, FormLabel, Input, Radio, RadioGroup, Stack } from "@chakra-ui/react"
 import { useFormik } from "formik";
 import * as Yup from 'yup'
 
@@ -6,21 +6,19 @@ const LoginForm = () => {
   const formik = useFormik({
     initialValues: {
       email: '',
-      password: ''
+      password: '',
+      gender: 'test'
     },
     validationSchema: Yup.object({
       email: Yup.string().required('Email is required').email('Email is incorrect'),
-      password: Yup.string().required('Password is required').min(8, 'Min length for password is 8 characters')
+      password: Yup.string().required('Password is required').min(8, 'Min length for password is 8 characters'),
+      gender: Yup.string().matches(/^(male|female)$/, 'error gender')
     }),
     validateOnMount: true
   });
 
   const handleSubmit = () => {
-    if (!formik.isValid) {
-      alert('login Failed')
-      return
-    }
-    
+    debugger
     alert(JSON.stringify(formik.values))
   }
 
@@ -54,6 +52,12 @@ const LoginForm = () => {
               : <></>
           }
         </FormControl>
+        <RadioGroup name='gender' value={formik.values.gender}>
+            <Radio isDisabled value='test' name="gender" onChange={formik.handleChange}>Test</Radio>
+            <Radio value='male' name="gender" onChange={formik.handleChange}>Male</Radio>
+            <Radio value='female' name="gender" onChange={formik.handleChange}>Female</Radio>
+        </RadioGroup>
+        <span>{formik.errors.gender}</span>
       </Box>
       <Button onClick={handleSubmit}>Login</Button>
     </Box>
